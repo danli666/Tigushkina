@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         exam3 - Auto Select on Hover
+// @name         Exam3
 // @namespace    http://tampermonkey.net/
-// @version      6.4
-// @description  Автоматически выбирает правильные ответы при наведении курсора (кроме правой кнопки мыши)
+// @version      6.6
+// @description  Автоматически выбирает правильные ответы при наведении курсора (ПРАВАЯ КНОПКА ПОЛНОСТЬЮ ЗАБЛОКИРОВАНА)
 // @author       You
 // @match        https://intuit.ru/studies/courses/1150/157/test/1/2057
 // @match        https://intuit.ru/studies/courses/1150/157/test/1/2058
@@ -20,6 +20,40 @@
 
 (function() {
     'use strict';
+
+    // ПОЛНАЯ БЛОКИРОВКА ПРАВОЙ КНОПКИ МЫШИ
+    // Эти обработчики добавляются в самом начале
+    function blockRightClick() {
+        // Блокируем контекстное меню (правый клик)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, true); // Используем capturing фазу для гарантированной блокировки
+
+        // Блокируем событие mousedown для правой кнопки
+        document.addEventListener('mousedown', function(e) {
+            if (e.button === 2) { // 2 = правая кнопка
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }, true);
+
+        // Блокируем событие mouseup для правой кнопки
+        document.addEventListener('mouseup', function(e) {
+            if (e.button === 2) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }, true);
+
+        console.log();
+    }
+
+    // Вызываем блокировку ДО всего остального
+    blockRightClick();
 
     // База данных с правильными ответами по тексту
     const correctAnswerTexts = {
@@ -1085,7 +1119,7 @@ function findCorrectAnswersForQuestion(questionText) {
         // Проверяем, нажата ли правая кнопка (button 2)
         if (event.button === 2) {
             isRightClickPressed = true;
-            
+
             // Отменяем любой текущий таймер
             if (hoverTimer) {
                 clearTimeout(hoverTimer);
@@ -1100,7 +1134,7 @@ function findCorrectAnswersForQuestion(questionText) {
         // Проверяем, отпущена ли правая кнопка
         if (event.button === 2) {
             isRightClickPressed = false;
-            
+
         }
     }
 
@@ -1125,7 +1159,7 @@ function findCorrectAnswersForQuestion(questionText) {
         // Ctrl+Shift+T для переключения режима
         if (event.ctrlKey && event.shiftKey && event.key === 'T') {
             hoverEnabled = !hoverEnabled;
-            
+
         }
     }
 
