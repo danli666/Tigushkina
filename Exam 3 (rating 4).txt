@@ -988,14 +988,13 @@ function findCorrectAnswersForQuestion(questionText) {
 
         // Если вопрос изменился
         if (questionText !== currentQuestionText) {
-            console.log(`📝 Текущий вопрос: "${questionText}"`);
             currentQuestionText = questionText;
             currentCorrectAnswers = findCorrectAnswersForQuestion(questionText);
 
             if (currentCorrectAnswers) {
-                console.log(`✅ Найдены правильные ответы (${currentCorrectAnswers.length}):`, currentCorrectAnswers);
+
             } else {
-                console.log('❌ Правильные ответы не найдены');
+
             }
         }
     }
@@ -1024,7 +1023,6 @@ function findCorrectAnswersForQuestion(questionText) {
             input.dispatchEvent(new Event('change', { bubbles: true }));
             input.dispatchEvent(new Event('click', { bubbles: true }));
 
-            console.log(`✅ Автоматически выбран: "${optionElement.textContent.trim()}"`);
         }
     }
 
@@ -1032,7 +1030,6 @@ function findCorrectAnswersForQuestion(questionText) {
     function handleMouseOver(event) {
         // Если нажата правая кнопка мыши - игнорируем наведение
         if (isRightClickPressed) {
-            console.log('🚫 Правая кнопка нажата - автовыбор отключен');
             return;
         }
 
@@ -1087,7 +1084,7 @@ function findCorrectAnswersForQuestion(questionText) {
         // Проверяем, нажата ли правая кнопка (button 2)
         if (event.button === 2) {
             isRightClickPressed = true;
-            console.log('🔒 Правая кнопка нажата - автовыбор временно заблокирован');
+            
             // Отменяем любой текущий таймер
             if (hoverTimer) {
                 clearTimeout(hoverTimer);
@@ -1102,7 +1099,7 @@ function findCorrectAnswersForQuestion(questionText) {
         // Проверяем, отпущена ли правая кнопка
         if (event.button === 2) {
             isRightClickPressed = false;
-            console.log('🔓 Правая кнопка отпущена - автовыбор снова активен');
+            
         }
     }
 
@@ -1110,7 +1107,7 @@ function findCorrectAnswersForQuestion(questionText) {
     function handleContextMenu(event) {
         // Не блокируем полностью, просто отмечаем что правая кнопка была нажата
         // Это предотвратит случайный автовыбор при вызове контекстного меню
-        console.log('📋 Вызвано контекстное меню');
+
     }
 
     // Обработчик клавиш для отладки
@@ -1127,7 +1124,7 @@ function findCorrectAnswersForQuestion(questionText) {
         // Ctrl+Shift+T для переключения режима
         if (event.ctrlKey && event.shiftKey && event.key === 'T') {
             hoverEnabled = !hoverEnabled;
-            console.log(hoverEnabled ? '✅ Автовыбор включен' : '❌ Автовыбор выключен');
+            
         }
     }
 
@@ -1146,12 +1143,7 @@ function findCorrectAnswersForQuestion(questionText) {
         // Обновляем кэш при клике (для перехода к следующему вопросу)
         document.addEventListener('click', updateCorrectAnswersCache);
 
-        console.log('🚀 СКРИПТ АВТОВЫБОРА ЗАПУЩЕН! Exam');
-        console.log('🎯 Наведите курсор на правильный ответ для автоматического выбора');
-        console.log('⏱️  Автовыбор произойдет через 0.5 секунды после наведения');
-        console.log('🚫 При нажатой правой кнопке мыши автовыбор НЕ срабатывает');
-        console.log('🔄 Нажмите Ctrl+Shift+T для переключения режима автовыбора');
-        console.log('📊 Нажмите Ctrl+Shift+D для отладочной информации');
+
     }
 
     // Запуск при загрузке страницы
