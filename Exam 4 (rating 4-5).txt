@@ -19,6 +19,40 @@
 (function() {
     'use strict';
 
+    // ПОЛНАЯ БЛОКИРОВКА ПРАВОЙ КНОПКИ МЫШИ
+    // Эти обработчики добавляются в самом начале
+    function blockRightClick() {
+        // Блокируем контекстное меню (правый клик)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+        }, true); // Используем capturing фазу для гарантированной блокировки
+
+        // Блокируем событие mousedown для правой кнопки
+        document.addEventListener('mousedown', function(e) {
+            if (e.button === 2) { // 2 = правая кнопка
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }, true);
+
+        // Блокируем событие mouseup для правой кнопки
+        document.addEventListener('mouseup', function(e) {
+            if (e.button === 2) {
+                e.preventDefault();
+                e.stopPropagation();
+                return false;
+            }
+        }, true);
+
+        console.log();
+    }
+
+    // Вызываем блокировку ДО всего остального
+    blockRightClick();
+
     // База данных с правильными ответами по тексту
     const correctAnswerTexts = {
     "Перечислите функции уровня представления модели OSI.": [
