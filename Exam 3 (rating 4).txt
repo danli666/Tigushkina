@@ -13,6 +13,7 @@
 // @match        https://intuit.ru/studies/courses/1150/157/test/1/2063
 // @match        https://intuit.ru/studies/courses/1150/157/test/1/2064
 // @match        https://intuit.ru/studies/courses/1150/157/test/1/2065
+// @match        https://intuit.ru/studies/courses/1150/157/test/3/0
 // @grant        none
 // @run-at       document-start
 // ==/UserScript==
